@@ -3,8 +3,8 @@
 %global git 20160216
 
 Name:           aribb24
-Version:        1.0.3%{git}
-Release:        1
+Version:        1.0.3.%{git}
+Release:        2
 Summary:        A library for ARIB STD-B24
 License:        LGPL-3.0-only
 URL:            https://github.com/nkoriyama/%{name}
