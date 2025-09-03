@@ -29,6 +29,7 @@ Development files and headers for the ARIB STD-B24 library.
 %autosetup -p1 -n %{name}-master
 
 %build
+export LDFLAGS="$LDFLAGS -lm"
 autoreconf -vif
 %configure --disable-static
 %make_build
