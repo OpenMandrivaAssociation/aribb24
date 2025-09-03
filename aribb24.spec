@@ -1,26 +1,18 @@
-%global commit0 5e9be272f96e00f15a2f3c5f8ba7e124862aec38
-%global date 20160216
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global git 20160216
 
 Name:           aribb24
-Version:        1.0.3%{!?tag:^%{date}git%{shortcommit0}}
-Release:        3%{?dist}
+Version:        1.0.3%{git}
+Release:        1
 Summary:        A library for ARIB STD-B24
 License:        LGPL-3.0-only
 URL:            https://github.com/nkoriyama/%{name}
 
-%if 0%{?tag:1}
-Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
-%else
-Source0:        %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-%endif
+Source0:        https://github.com/nkoriyama/aribb24/archive/refs/heads/aribb24-master.tar.gz
 
 BuildRequires:  autoconf
 BuildRequires:  automake
-BuildRequires:  gcc
 BuildRequires:  libtool
-BuildRequires:  libpng-devel
+BuildRequires:  pkgconfig(libpng)
 
 %description
 A library for ARIB STD-B24, decoding JIS 8 bit characters and parsing MPEG-TS
@@ -34,11 +26,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Development files and headers for the ARIB STD-B24 library.
 
 %prep
-%if 0%{?tag:1}
-%autosetup -p1
-%else
-%autosetup -p1 -n %{name}-%{commit0}
-%endif
+%autosetup -p1 -n %{name}-master
 
 %build
 autoreconf -vif
@@ -62,13 +50,3 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_includedir}/%{name}
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
-
-%changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3^20160216git5e9be27-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3^20160216git5e9be27-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Sep 12 2024 Simone Caronni <negativo17@gmail.com> - 1.0.3^20160216git5e9be27-1
-- First build.
